@@ -13,24 +13,25 @@ typedef unsigned int uint;
 class TBitField
 {
 private:
-    size_t bitLen;   // длина битового поля - макс. к-во битов
-    uint *pMem;      // память для представления битового поля
-    size_t memLen;   // к-во эл-тов uint для представления бит.поля //длина массива pMem
+    size_t bitLen = 0;   // длина битового поля - макс. к-во битов
+    uint *pMem = 0;      // память для представления битового поля
+    size_t memLen = 0;   // к-во эл-тов uint для представления бит.поля //длина массива pMem
+    size_t uint_bitLen = sizeof(uint) * 8; // число бит в uint
 
     // методы реализации
     size_t getIndex(const size_t n) const; // индекс в pМем для бита n
     uint getMask(const size_t n) const;    // битовая маска для бита n
-                                 
+
 public:
-     TBitField(size_t len);
-     TBitField(const TBitField &bf);
-     ~TBitField();
+    TBitField(size_t len);
+    TBitField(const TBitField& bf);
+    ~TBitField();
 
     // доступ к битам
-    uint getLength() const;            // получить длину (к-во битов)
-    void setBit(const size_t n);       // установить бит
-    void clrBit(const size_t n);       // очистить бит
-    bool getBit(const size_t n) const; // получить значение бита
+     uint getLength() const;             // получить длину (к-во битов)
+     void setBit(const size_t n);        // установить бит
+     void clrBit(const size_t n);        // очистить бит
+     bool getBit(const size_t n) const; // получить значение бита
 
     // битовые операции
     bool operator==(const TBitField &bf) const; // сравнение
