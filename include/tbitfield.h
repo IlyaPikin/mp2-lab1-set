@@ -32,6 +32,7 @@ public:
      void setBit(const size_t n);        // установить бит
      void clrBit(const size_t n);        // очистить бит
      bool getBit(const size_t n) const; // получить значение бита
+     void clrBitField();
 
     // битовые операции
     bool operator==(const TBitField &bf) const; // сравнение

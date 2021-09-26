@@ -1,4 +1,7 @@
 #include <gtest.h>
+#include <string>  
+#include <iostream> 
+#include <sstream> 
 #include "tbitfield.h"
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
@@ -271,4 +274,47 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
     bf2.setBit(2);
 
     EXPECT_NE(bf1, bf2);
+}
+
+TEST(TBitField, make_correct_copy)
+{
+    TBitField bf1(999);
+    for (size_t i = 0; i < bf1.getLength(); i++)
+        bf1.setBit(i);
+    TBitField bf2(bf1);
+
+    EXPECT_EQ(bf1, bf2);
+}
+
+TEST(TBitField, not_possitive_bit_lenght)
+{
+    EXPECT_ANY_THROW(TBitField bf(-50););
+}
+
+
+TEST(TBitField, output_test)
+{
+    TBitField bf(2);
+    bf.setBit(1);
+    std::stringstream buffer;
+    buffer << bf;
+    std::string str2 = buffer.str();
+    std::string str1 = "0 1 ";
+    EXPECT_EQ(str1, str2);
+}
+
+TEST(TBitField, input_test)
+{
+    std::stringstream buffer;
+    buffer << "1 1 1 0 0 0";
+    TBitField bf(6);
+    buffer >> bf;
+    bf = ~bf;
+    buffer.str("");
+    buffer.clear();
+    buffer << bf;
+    std::string str1 = "0 0 0 1 1 1 ";
+    std::string str2 = buffer.str();
+
+    EXPECT_EQ(str1, str2);
 }
