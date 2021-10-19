@@ -39,12 +39,12 @@ TBitField::TBitField(const TBitField &bf) // конструктор копиро
 
 size_t TBitField::getIndex(const size_t n) const  // индекс в pМем для бита n
 {
-    return ((n + elType_bitLen)/ elType_bitLen) -1;
+    return ((n + elType_bitLen)/ elType_bitLen) - 1;
 }
 
 elType TBitField::getMask(const size_t n) const // битовая маска для бита n
 {
-    elType mask = 1 << (n % elType_bitLen);
+    elType mask = (size_t)1 << (n % elType_bitLen);
     return mask;
 }
 
