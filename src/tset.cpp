@@ -29,7 +29,7 @@ size_t TSet::getMaxPower() const // получить макс. к-во эл-то
     return maxPower;
 }
 
-bool TSet::isMember(const uint elem) const // элемент множества?
+bool TSet::isMember(const elType elem) const // элемент множества?
 {
     if (bitField.getBit(elem))
         return true;
@@ -37,7 +37,7 @@ bool TSet::isMember(const uint elem) const // элемент множества?
         return false;
 }
 
-void TSet::insElem(const uint elem) // включение элемента множества
+void TSet::insElem(const elType elem) // включение элемента множества
 {
     if (elem < maxPower && elem >= 0)
         bitField.setBit(elem);
@@ -45,7 +45,7 @@ void TSet::insElem(const uint elem) // включение элемента мн�
         throw("Incorrer input");
 }
 
-void TSet::delElem(const uint elem) // исключение элемента множества
+void TSet::delElem(const elType elem) // исключение элемента множества
 {
     if (elem < maxPower && elem >= 0)
         bitField.clrBit(elem);
@@ -81,7 +81,7 @@ TSet TSet::operator+(const TSet &s) // объединение
     return result;
 }
 
-TSet TSet::operator+(const uint elem) // объединение с элементом
+TSet TSet::operator+(const elType elem) // объединение с элементом
 {
     if (elem < 0 || elem>=maxPower) throw("Incorrect input"); 
     TSet result(std::max(maxPower, (size_t)elem+1));
@@ -94,7 +94,7 @@ TSet TSet::operator+(const uint elem) // объединение с элемен�
     //
 }
 
-TSet TSet::operator-(const uint elem) // разность с элементом
+TSet TSet::operator-(const elType elem) // разность с элементом
 {
     if (elem < 0 || elem >= maxPower) throw("Incorrect input");
     TSet result(std::max(maxPower, (size_t)elem + 1));

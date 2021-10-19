@@ -8,19 +8,27 @@
 #pragma once
 #include <iosfwd>
 
-typedef unsigned int uint;
+typedef size_t elType;
 
 class TBitField
 {
 private:
     size_t bitLen = 0;   // длина битового поля - макс. к-во битов
-    uint *pMem = 0;      // память для представления битового поля
-    size_t memLen = 0;   // к-во эл-тов uint для представления бит.поля //длина массива pMem
-    size_t uint_bitLen = sizeof(uint) * 8; // число бит в uint
+    elType *pMem = 0;      // память для представления битового поля
+    size_t memLen = 0;   // к-во эл-тов elType для представления бит.поля //длина массива pMem
+    size_t uint_bitLen = sizeof(elType) * 8; // число бит в elType
 
     // методы реализации
     size_t getIndex(const size_t n) const; // индекс в pМем для бита n
-    uint getMask(const size_t n) const;    // битовая маска для бита n
+    elType getMask(const size_t n) const;    // битовая маска для бита n
+
+    size_t bitLen;   // длина битового поля - макс. к-во битов
+    elType* pMem;     // память для представления битового поля
+    size_t memLen;   // к-во эл-тов elType для представления бит.поля //длина массива pMem
+
+    // методы реализации
+    size_t getIndex(const size_t n) const; // индекс в pМем для бита n
+    elType getMask(const size_t n) const;    // битовая маска для бита n
 
 public:
     TBitField(size_t len);
@@ -28,25 +36,31 @@ public:
     ~TBitField();
 
     // доступ к битам
-     uint getLength() const;             // получить длину (к-во битов)
-     uint getNumBytes() const;           // получить кол-во байтов
+     elType getLength() const;             // получить длину (к-во битов)
+     elType getNumBytes() const;           // получить количество байт выделенной памяти
      void setBit(const size_t n);        // установить бит
      void clrBit(const size_t n);        // очистить бит
      bool getBit(const size_t n) const; // получить значение бита
      void clrBitField();
 
-    // битовые операции
-    bool operator==(const TBitField &bf) const; // сравнение
-    bool operator!=(const TBitField &bf) const; // сравнение
-    TBitField& operator=(const TBitField &bf);  // присваивание
-    TBitField  operator|(const TBitField &bf);  // операция "или"
-    TBitField  operator&(const TBitField &bf);  // операция "и"
-    TBitField  operator~();                 // отрицание
+    size_t getLength() const;          // получить длину (к-во битов)
+    size_t getNumBytes() const;        // получить количество байт выделенной памяти
+    void setBit(const size_t n);       // установить бит
+    void clrBit(const size_t n);       // очистить бит
+    bool getBit(const size_t n) const; // получить значение бита
 
-    friend std::istream &operator>>(std::istream &istr, TBitField &bf);
-    friend std::ostream &operator<<(std::ostream &ostr, const TBitField &bf);
+    // битовые операции
+    bool operator==(const TBitField& bf) const; // сравнение
+    bool operator!=(const TBitField& bf) const; // сравнение
+    TBitField& operator=(const TBitField& bf);  // присваивание
+    TBitField  operator|(const TBitField& bf);  // операция "или"
+    TBitField  operator&(const TBitField& bf);  // операция "и"
+    TBitField  operator~();                     // отрицание
+
+    friend std::istream& operator>>(std::istream& istr, TBitField& bf);
+    friend std::ostream& operator<<(std::ostream& ostr, const TBitField& bf);
 };
 //   Структура хранения битового поля
 //   бит.поле - набор битов с номерами от 0 до bitLen
-//   массив pМем рассматривается как последовательность uint элементов
+//   массив pМем рассматривается как последовательность elType элементов
 //   биты в эл-тах pМем нумеруются справа налево (от младших к старшим)
