@@ -15,6 +15,18 @@ TEST(TBitField, can_get_length)
     EXPECT_EQ(3, bf.getLength());
 }
 
+TEST(TBitField, can_create_bitfield_with_zero_length)
+{
+    ASSERT_NO_THROW(TBitField bf(0));
+}
+
+TEST(TBitField, len_bitfield_with_zero_length)
+{
+    TBitField bf(0);
+    EXPECT_EQ(0, bf.getLength());
+    EXPECT_EQ(0, bf.getNumBytes());
+}
+
 TEST(TBitField, new_bitfield_is_set_to_zero)
 {
     TBitField bf(100);
