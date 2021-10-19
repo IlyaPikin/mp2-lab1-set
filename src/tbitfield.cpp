@@ -14,12 +14,12 @@
 size_t bitLen = 0;   // длина битового поля - макс. к-во битов
 elType* pMem = 0;      // память для представления битового поля
 size_t memLen = 0;   // к-во эл-тов elType для представления бит.поля //длина массива pMem
-size_t uint_bitLen = sizeof(elType) * 8; // число бит в elType
+size_t elType_bitLen = sizeof(elType) * 8; // число бит в elType
 
 TBitField::TBitField(size_t len): bitLen(len)
 {
     if (len < 0) throw("Incorrect input");
-    memLen = (bitLen + uint_bitLen - 1) / uint_bitLen;
+    memLen = (bitLen + elType_bitLen - 1) / elType_bitLen;
     if (len == 0)
         pMem = 0;
     else
@@ -30,7 +30,7 @@ TBitField::TBitField(size_t len): bitLen(len)
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
 {
         bitLen = bf.getLength();
-        memLen = (bitLen + uint_bitLen - 1) / uint_bitLen;
+        memLen = (bitLen + elType_bitLen - 1) / elType_bitLen;
         pMem = new elType[memLen];
 
         for (size_t i = 0; i < memLen; i++)
@@ -39,12 +39,12 @@ TBitField::TBitField(const TBitField &bf) // конструктор копиро
 
 size_t TBitField::getIndex(const size_t n) const  // индекс в pМем для бита n
 {
-    return ((n + uint_bitLen)/ uint_bitLen) -1;
+    return ((n + elType_bitLen)/ elType_bitLen) -1;
 }
 
 elType TBitField::getMask(const size_t n) const // битовая маска для бита n
 {
-    elType mask = 1 << (n % uint_bitLen);
+    elType mask = 1 << (n % elType_bitLen);
     return mask;
 }
 

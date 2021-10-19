@@ -15,14 +15,13 @@ TEST(TBitField, can_get_length)
     EXPECT_EQ(3, bf.getLength());
 }
 
-<<<<<<< HEAD
+
 TEST(TBitField, can_create_bitfield_with_zero_length)
 {
     ASSERT_NO_THROW(TBitField bf(0));
 }
 
-=======
->>>>>>> 82602203a3c23d0c76ba4716720e96c42e9170ff
+
 TEST(TBitField, len_bitfield_with_zero_length)
 {
     TBitField bf(0);
@@ -300,12 +299,6 @@ TEST(TBitField, make_correct_copy)
 
     EXPECT_EQ(bf1, bf2);
 }
-
-TEST(TBitField, not_possitive_bit_lenght)
-{
-    EXPECT_ANY_THROW(TBitField bf(-50););
-}
-
 
 TEST(TBitField, output_test)
 {

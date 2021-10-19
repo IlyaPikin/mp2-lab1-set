@@ -14,17 +14,9 @@ class TBitField
 {
 private:
     size_t bitLen = 0;   // длина битового поля - макс. к-во битов
-    elType *pMem = 0;      // память для представления битового поля
+    elType *pMem = 0;    // память для представления битового поля
     size_t memLen = 0;   // к-во эл-тов elType для представления бит.поля //длина массива pMem
-    size_t uint_bitLen = sizeof(elType) * 8; // число бит в elType
-
-    // методы реализации
-    size_t getIndex(const size_t n) const; // индекс в pМем для бита n
-    elType getMask(const size_t n) const;    // битовая маска для бита n
-
-    size_t bitLen;   // длина битового поля - макс. к-во битов
-    elType* pMem;     // память для представления битового поля
-    size_t memLen;   // к-во эл-тов elType для представления бит.поля //длина массива pMem
+    size_t elType_bitLen = sizeof(elType) * 8; // число бит в elType
 
     // методы реализации
     size_t getIndex(const size_t n) const; // индекс в pМем для бита n
@@ -36,18 +28,12 @@ public:
     ~TBitField();
 
     // доступ к битам
-     elType getLength() const;             // получить длину (к-во битов)
-     elType getNumBytes() const;           // получить количество байт выделенной памяти
+     elType getLength() const;           // получить длину (к-во битов)
+     elType getNumBytes() const;         // получить количество байт выделенной памяти
      void setBit(const size_t n);        // установить бит
      void clrBit(const size_t n);        // очистить бит
-     bool getBit(const size_t n) const; // получить значение бита
+     bool getBit(const size_t n) const;  // получить значение бита
      void clrBitField();
-
-    size_t getLength() const;          // получить длину (к-во битов)
-    size_t getNumBytes() const;        // получить количество байт выделенной памяти
-    void setBit(const size_t n);       // установить бит
-    void clrBit(const size_t n);       // очистить бит
-    bool getBit(const size_t n) const; // получить значение бита
 
     // битовые операции
     bool operator==(const TBitField& bf) const; // сравнение
