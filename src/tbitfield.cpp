@@ -19,24 +19,20 @@ size_t uint_bitLen = sizeof(uint) * 8; // число бит в uint
 
 TBitField::TBitField(size_t len): bitLen(len)
 {
-    if (len < 1) throw("Incorrect input");
+    if (len < 0) throw("Incorrect input");
     memLen = (bitLen + uint_bitLen - 1) / uint_bitLen;
-    pMem = new uint[memLen];
+    if (len == 0)
+        pMem = 0;
+    else
+        pMem = new uint[memLen];
     clrBitField();
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
 {
-        //uint_bitLen = sizeof(uint) * 8;
         bitLen = bf.getLength();
         memLen = (bitLen + uint_bitLen - 1) / uint_bitLen;
         pMem = new uint[memLen];
-
-        //for (size_t i = 0; i < bitLen; i++)
-        //    if (bf.getBit(i))
-        //        this->setBit(i);
-        //    else
-        //        this->clrBit(i);
 
         for (size_t i = 0; i < memLen; i++)
             pMem[i] = bf.pMem[i];
@@ -57,6 +53,11 @@ uint TBitField::getMask(const size_t n) const // битовая маска дл�
 uint TBitField::getLength() const // получить длину (к-во битов)
 {
     return bitLen;
+}
+
+uint TBitField::getNumBytes() const  // получить кол-во байтов
+{
+    return memLen;
 }
 
 void TBitField::setBit(const size_t n) // установить бит
