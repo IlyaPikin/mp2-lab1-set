@@ -12,7 +12,7 @@
 
 
 size_t bitLen = 0;   // длина битового поля - макс. к-во битов
-elType* pMem = 0;      // память для представления битового поля
+elType* pMem = nullptr;      // память для представления битового поля
 size_t memLen = 0;   // к-во эл-тов elType для представления бит.поля //длина массива pMem
 size_t elType_bitLen = sizeof(elType) * 8; // число бит в elType
 
